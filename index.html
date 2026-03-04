@@ -1,29 +1,87 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Tableau Dashboard Viewer</title>
+  <meta charset="UTF-8">
+  <title>Catbalogan CBMS Dashboard</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <style>
     body {
       margin: 0;
       height: 100vh;
       display: flex;
       flex-direction: column;
+      font-family: Arial, sans-serif;
     }
+
+    .header {
+      background: #0f3057;
+      color: white;
+      padding: 10px 20px;
+      font-size: 14px;
+    }
+
     iframe {
       flex-grow: 1;
       border: none;
     }
+
+    .footer {
+      text-align: center;
+      padding: 8px;
+      font-size: 13px;
+      color: #555;
+    }
   </style>
 </head>
+
 <body>
-    <iframe 
-    src="https://public.tableau.com/views/CatbaloganCityCBMS/HOME?:embed=y&:showVizHome=no"
-    width="100%" 
-    height="100%" 
-    frameborder="0">
-    </iframe>
+
+  <div class="header">
+    Catbalogan City CBMS Dashboard
+  </div>
+
+  <iframe 
+    src="https://public.tableau.com/views/cmbs-dataviz_17497737188290/HOME?:embed=y&:showVizHome=no">
+  </iframe>
+
+  <div class="footer" id="visitor-count">Loading views...</div>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+    import { getFirestore, doc, getDoc, updateDoc, increment }
+      from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyDF-eGFewM9QYBbvx2t7tTsV3VlTwhAqNs",
+      authDomain: "cpdco-dashboard.firebaseapp.com",
+      projectId: "cpdco-dashboard",
+      storageBucket: "cpdco-dashboard.firebasestorage.app",
+      messagingSenderId: "1071975859817",
+      appId: "1:1071975859817:web:dd1ad31fa011938d8b04f8"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+    const docRef = doc(db, "dashboard_stats", "cbms");
+
+    const hasVisited = localStorage.getItem("cbms_visited");
+
+    async function updateCounter() {
+      if (!hasVisited) {
+        await updateDoc(docRef, { views: increment(1) });
+        localStorage.setItem("cbms_visited", "true");
+      }
+
+      const snapshot = await getDoc(docRef);
+      const views = snapshot.data().views;
+
+      document.getElementById("visitor-count").innerText =
+        "Total Views: " + views.toLocaleString();
+    }
+
+    updateCounter();
+  </script>
+
 </body>
 </html>
-
