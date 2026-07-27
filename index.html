@@ -4,21 +4,23 @@
   <meta charset="UTF-8">
   <title>Catbalogan CBMS Dashboard</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
   <style>
-    body {
+    html, body {
       margin: 0;
-      height: 100vh;
+      height: 100%;
       display: flex;
       flex-direction: column;
       font-family: Arial, sans-serif;
     }
-
-    iframe {
+    #vizContainer {
       flex-grow: 1;
-      border: none;
+      width: 100%;
     }
-
+    tableau-viz {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
     .footer {
       text-align: left;
       padding: 8px 16px;
@@ -27,15 +29,23 @@
     }
   </style>
 </head>
-
 <body>
 
-  <iframe 
-    src="https://public.tableau.com/views/CatbaloganCityCBMS/Demography?:embed=y&:showVizHome=no">
-  </iframe>
+  <div id="vizContainer">
+    <tableau-viz id="tableauViz"
+      src="https://public.tableau.com/views/CatbaloganCityCBMS/Demography"
+      device="default"
+      toolbar="bottom"
+      hide-tabs>
+    </tableau-viz>
+  </div>
 
   <div class="footer" id="visitor-count">Loading views...</div>
 
+  <!-- Tableau Embedding API v3 -->
+  <script type="module" src="https://public.tableau.com/javascripts/api/tableau.embed.js"></script>
+
+  <!-- Firebase visitor counter -->
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
     import { getFirestore, doc, getDoc, updateDoc, increment }
@@ -53,7 +63,6 @@
     const app = initializeApp(firebaseConfig);
     const db = getFirestore(app);
     const docRef = doc(db, "dashboard_stats", "cbms");
-
     const hasVisited = localStorage.getItem("cbms_visited");
 
     async function updateCounter() {
@@ -61,10 +70,8 @@
         await updateDoc(docRef, { views: increment(1) });
         localStorage.setItem("cbms_visited", "true");
       }
-
       const snapshot = await getDoc(docRef);
       const views = snapshot.data().views;
-
       document.getElementById("visitor-count").innerText =
         "Total Views: " + views.toLocaleString();
     }
@@ -74,4 +81,3 @@
 
 </body>
 </html>
-
