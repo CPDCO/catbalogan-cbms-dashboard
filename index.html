@@ -36,33 +36,31 @@
 
   <div class="footer" id="visitor-count">Loading views...</div>
 
-  <!-- Build the iframe with the right device layout based on screen width -->
   <script>
     (function buildViz() {
       const baseUrl = "https://public.tableau.com/views/CatbaloganCityCBMS/Demography";
-      const isPhone = window.innerWidth < 600;
+
+      // Detect mobile two ways: screen width OR mobile user-agent
+      const narrowScreen = window.innerWidth < 600;
+      const mobileUA = /Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent);
+      const isPhone = narrowScreen || mobileUA;
+
       const device = isPhone ? "phone" : "desktop";
 
-      const src = baseUrl
-        + "?:embed=y"
-        + "&:showVizHome=no"
-        + "&:tabs=no"
-        + "&:toolbar=bottom"
-        + "&:device=" + device;
+      const params = [
+        ":embed=y",
+        ":showVizHome=no",
+        ":tabs=no",
+        ":toolbar=bottom",
+        ":device=" + device
+      ];
+      const src = baseUrl + "?" + params.join("&");
 
-      document.getElementById("vizContainer").innerHTML =
-        '<iframe src="' + src + '"></iframe>';
+      // Build the iframe with createElement (avoids &: mangling)
+      const iframe = document.createElement("iframe");
+      iframe.setAttribute("src", src);
+      document.getElementById("vizContainer").appendChild(iframe);
     })();
-
-    // Reload with the correct layout if the user rotates / resizes across the breakpoint
-    let lastIsPhone = window.innerWidth < 600;
-    window.addEventListener("resize", function () {
-      const nowIsPhone = window.innerWidth < 600;
-      if (nowIsPhone !== lastIsPhone) {
-        lastIsPhone = nowIsPhone;
-        location.reload();
-      }
-    });
   </script>
 
   <!-- Firebase visitor counter (unchanged) -->
