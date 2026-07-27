@@ -40,23 +40,16 @@
     (function buildViz() {
       const baseUrl = "https://public.tableau.com/views/CatbaloganCityCBMS/Demography";
 
-      // Detect mobile two ways: screen width OR mobile user-agent
-      const narrowScreen = window.innerWidth < 600;
-      const mobileUA = /Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent);
-      const isPhone = narrowScreen || mobileUA;
+      const isPhone =
+        window.innerWidth < 600 ||
+        /Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent);
 
-      const device = isPhone ? "phone" : "desktop";
+      // Match the confirmed-working URL exactly, plus :embed=y for embedding
+      const src = baseUrl
+        + "?:embed=y"
+        + "&:showVizHome=no"
+        + (isPhone ? "&:device=phone" : "");
 
-      const params = [
-        ":embed=y",
-        ":showVizHome=no",
-        ":tabs=no",
-        ":toolbar=bottom",
-        ":device=" + device
-      ];
-      const src = baseUrl + "?" + params.join("&");
-
-      // Build the iframe with createElement (avoids &: mangling)
       const iframe = document.createElement("iframe");
       iframe.setAttribute("src", src);
       document.getElementById("vizContainer").appendChild(iframe);
