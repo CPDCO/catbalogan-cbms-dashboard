@@ -12,16 +12,22 @@
       flex-direction: column;
       font-family: Arial, sans-serif;
     }
+
+    /* Center the iframe both horizontally and vertically at any size */
     .viz-container {
       flex-grow: 1;
-      width: 100%;
       min-height: 0;
+      display: flex;
+      justify-content: center;   /* horizontal centering */
+      align-items: center;       /* vertical centering */
     }
     .viz-container iframe {
       width: 100%;
       height: 100%;
+      max-width: 1200px;         /* keeps it centered on wide screens */
       border: none;
     }
+
     .footer {
       text-align: left;
       padding: 8px 16px;
@@ -44,7 +50,6 @@
         window.innerWidth < 600 ||
         /Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent);
 
-      // Match the confirmed-working URL exactly, plus :embed=y for embedding
       const src = baseUrl
         + "?:embed=y"
         + "&:showVizHome=no"
