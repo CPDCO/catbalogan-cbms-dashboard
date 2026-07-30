@@ -19,8 +19,11 @@
       width: 100%;
     }
     .viz-container iframe {
+      display: block;
       width: 100%;
       height: 100%;
+      max-width: 1400px;   /* <-- set this to your dashboard's MAX range width */
+      margin: 0 auto;      /* centers the iframe once it hits max-width */
       border: none;
     }
 
