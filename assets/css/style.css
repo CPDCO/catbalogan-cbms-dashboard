@@ -385,10 +385,15 @@ code, .mono { font-family: 'Cascadia Code', Consolas, monospace; font-size: 12px
    Responsive
    -------------------------------------------------------------------------- */
 
-@media (max-width: 980px) {
-  .module-grid { grid-template-columns: repeat(2, 1fr); }
+/* Below this the nav always takes its own full-width row, so it lays out the
+   same on every page regardless of how wide that page's title is. */
+@media (max-width: 1200px) {
   .site-head { flex-wrap: wrap; }
   .head-nav { margin-left: 0; width: 100%; justify-content: flex-start; }
+}
+
+@media (max-width: 980px) {
+  .module-grid { grid-template-columns: repeat(2, 1fr); }
 }
 
 @media (max-width: 640px) {
