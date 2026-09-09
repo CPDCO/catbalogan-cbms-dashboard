@@ -162,8 +162,8 @@ rest; hover and the current page each fill a rounded rectangle behind the item.
   <a href="index.html"     class="nav-pill">Home</a>
   <a href="dashboard.html" class="nav-pill">CBMS Dashboard</a>
   <a href="sdg.html"       class="nav-pill">SDG Indicators</a>
-  <a href="cso.html"       class="nav-pill">CSO Directory</a>
   <a href="maps.html"      class="nav-pill">Maps</a>
+  <a href="cso.html"       class="nav-pill">CSO Directory</a>
   <a href="about.html"     class="nav-pill">About</a>
 </nav>
 ```
@@ -246,8 +246,8 @@ own them, not to the portal.
 |---|---|---|---|---|
 | 1 | CBMS Dashboard | `#4e79a7` | PSA · CBMS 2024 | dashboard.html |
 | 2 | SDG Indicators | `#b07aa1` | CBMS SDG Tables | sdg.html |
-| 3 | CSO Directory | `#59a14f` | CPDCO records | cso.html |
-| 4 | Spatial Maps | `#76b7b2` | CLUP · CDRA | maps.html |
+| 3 | Spatial Maps | `#76b7b2` | CLUP · CDRA | maps.html |
+| 4 | CSO Directory | `#59a14f` | CPDCO records | cso.html |
 | 5 | BurodCast | `#e15759` | CPDCO · CBMS | dashboard.html?view=BurodCast |
 
 No icons and no emoji — the title carries the card. The sixth "future module" placeholder was
@@ -410,6 +410,9 @@ Layout: nav + full-bleed iframe + footer. No sidebar — Tableau provides all in
 
 **Dashboard title:** `Catbalogan City Civil Society Organizations Directory`
 **Dashboard subtitle:** `Registered, recognized, and accredited CSOs · Governed by RA 7160 and DILG MC 2022-083 · Accreditation valid for 3 years`
+
+The banner states the source positively; the earlier "not from the PSA CBMS" clause was
+removed at the office's request.
 
 Layout: nav + source disclaimer banner + full-bleed iframe + footer. No sidebar.
 
