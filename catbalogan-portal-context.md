@@ -164,6 +164,7 @@ rest; hover and the current page each fill a rounded rectangle behind the item.
   <a href="sdg.html"       class="nav-pill">SDG Indicators</a>
   <a href="maps.html"      class="nav-pill">Maps</a>
   <a href="cso.html"       class="nav-pill">CSO Directory</a>
+  <a href="dashboard.html?view=BurodCast" class="nav-pill">BurodCast</a>
   <a href="about.html"     class="nav-pill">About</a>
 </nav>
 ```
@@ -181,11 +182,18 @@ root, where `/` serves `index.html`:
 
 ```js
 var here = window.location.pathname.split('/').pop() || 'index.html';
+var view = new URLSearchParams(window.location.search).get('view') || '';
+
 document.querySelectorAll('.nav-pill').forEach(function (pill) {
-  var target = pill.getAttribute('href').split(/[?#]/)[0];
-  if (target === here) pill.classList.add('active');
+  var href = pill.getAttribute('href').split('#')[0].split('?');
+  var page = href[0];
+  var pillView = href[1] ? (new URLSearchParams(href[1]).get('view') || '') : '';
+  if (page === here && pillView === view) pill.classList.add('active');
 });
 ```
+
+The `?view=` comparison matters: CBMS Dashboard and BurodCast are both
+`dashboard.html`, so matching on the path alone would mark both active.
 
 ### Footer — light, `--surface` with a top rule
 

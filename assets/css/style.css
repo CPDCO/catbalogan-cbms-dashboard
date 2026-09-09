@@ -387,7 +387,7 @@ code, .mono { font-family: 'Cascadia Code', Consolas, monospace; font-size: 12px
 
 /* Below this the nav always takes its own full-width row, so it lays out the
    same on every page regardless of how wide that page's title is. */
-@media (max-width: 1200px) {
+@media (max-width: 1280px) {
   .site-head { flex-wrap: wrap; }
   .head-nav { margin-left: 0; width: 100%; justify-content: flex-start; }
 }
