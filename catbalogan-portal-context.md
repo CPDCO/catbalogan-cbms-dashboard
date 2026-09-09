@@ -561,6 +561,8 @@ of which workbook BurodCast should come from.
 | Navigation stays in the header band | A separate bar was tried and reverted; it cost iframe height on every embed page for no gain |
 | Nav items unfilled at rest | Only hover and the current page are filled, so the bar does not read as six competing buttons |
 | Segoe UI, no web font | System font on the office's machines; removes the Google Fonts request entirely |
+| Embed pages stay height-locked on phones | An earlier mobile override let the page grow, which left a tall empty band under short Tableau phone layouts; Tableau scrolls inside the frame at every size |
+| `dvh` alongside `vh` | Mobile browser chrome makes `100vh` taller than the visible viewport |
 | "About", not "About CPDCO" | The office is already named in the header subtitle |
 | BurodCast via `?view=` | Same workbook as the CBMS dashboard, so one page handles both views instead of duplicating the embed and counter code |
 | KPI strip dropped | Headline figures belong to the sector dashboard that owns them; hardcoding them on the landing page also meant silent staleness on every republish |

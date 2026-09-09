@@ -65,10 +65,22 @@ body {
 
 code, .mono { font-family: 'Cascadia Code', Consolas, monospace; font-size: 12px; }
 
-.page-shell { display: flex; flex-direction: column; min-height: 100vh; }
+.page-shell {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  min-height: 100dvh;   /* discounts mobile browser chrome */
+}
 
-/* Embed pages lock the viewport so the iframe owns the remaining height */
-.page-shell.embed { height: 100vh; min-height: 0; overflow: hidden; }
+/* Embed pages lock the viewport so the iframe owns exactly the remaining
+   height. Tableau scrolls inside the frame at every screen size — letting the
+   page grow instead leaves dead space under short phone layouts. */
+.page-shell.embed {
+  height: 100vh;
+  height: 100dvh;
+  min-height: 0;
+  overflow: hidden;
+}
 
 /* --------------------------------------------------------------------------
    Header band — mirrors the dashboard header
@@ -389,7 +401,7 @@ code, .mono { font-family: 'Cascadia Code', Consolas, monospace; font-size: 12px
 
   .panel        { padding: 16px; }
   .module-grid  { grid-template-columns: 1fr; }
-  .home-viz     { height: 78vh; }
+  .home-viz     { height: 78vh; height: 78dvh; }
 
   .view-switch  { flex-wrap: wrap; padding: 8px 16px; }
   .view-note    { margin-left: 0; flex-basis: 100%; }
@@ -402,10 +414,6 @@ code, .mono { font-family: 'Cascadia Code', Consolas, monospace; font-size: 12px
 
   .site-footer  { flex-direction: column; align-items: flex-start; gap: 8px; }
   .footer-links { flex-wrap: wrap; gap: 14px; }
-
-  /* Phone Tableau layouts are tall — let embed pages scroll */
-  .page-shell.embed { height: auto; min-height: 100vh; overflow: visible; }
-  #vizContainer     { min-height: 80vh; }
 
   .data-row     { flex-direction: column; gap: 2px; }
   .data-row dt  { flex: none; }
