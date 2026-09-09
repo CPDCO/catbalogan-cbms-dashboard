@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Catbalogan City Planning Data Portal</title>
+  <meta name="description" content="Planning and development data for Catbalogan City, Samar — population trends, CBMS household data, SDG indicators, the CSO directory, and spatial maps, published by the City Planning and Development Coordinator's Office.">
+  <meta property="og:title" content="Catbalogan City Planning Data Portal">
+  <meta property="og:description" content="Population trends, CBMS household data, SDG indicators, the CSO directory, and spatial maps for Catbalogan City, Samar.">
+  <meta property="og:image" content="assets/img/og-image.png">
+  <meta property="og:type" content="website">
+  <link rel="icon" type="image/png" href="assets/img/favicon.png">
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+<div class="page-shell">
+
+  <header class="site-head">
+    <a class="head-brand" href="index.html">
+      <img class="head-seal" src="assets/img/seal.png" width="52" height="52" alt="Catbalogan City seal">
+      <div>
+        <h1 class="head-title">Catbalogan City Planning Data Portal</h1>
+        <p class="head-sub">City Planning and Development Coordinator&rsquo;s Office &middot; Catbalogan City, Samar</p>
+      </div>
+    </a>
+    <nav class="head-nav">
+      <a href="index.html"     class="nav-pill">Home</a>
+      <a href="dashboard.html" class="nav-pill">CBMS Dashboard</a>
+      <a href="sdg.html"       class="nav-pill">SDG Indicators</a>
+      <a href="cso.html"       class="nav-pill">CSO Directory</a>
+      <a href="maps.html"      class="nav-pill">Maps</a>
+      <a href="about.html"     class="nav-pill">About</a>
+    </nav>
+  </header>
+
+  <section class="home-viz">
+    <div id="vizContainer"></div>
+  </section>
+
+  <main class="panel">
+    <h2 class="section-title">City Data Modules</h2>
+    <p class="section-sub">
+      Household, sectoral, and spatial data published by the office to support the
+      Comprehensive Development Plan and local decision-making.
+    </p>
+
+    <div class="module-grid">
+
+      <a href="dashboard.html" class="module-card" style="border-left-color:#4e79a7;">
+        <div class="module-title">CBMS Dashboard</div>
+        <div class="module-desc">
+          Explore 2022 and 2024 household data across all CDP sectors.
+        </div>
+        <div class="module-footer">
+          <span class="module-tag">PSA &middot; CBMS 2024</span>
+          <span class="module-open">Open &rarr;</span>
+        </div>
+      </a>
+
+      <a href="sdg.html" class="module-card" style="border-left-color:#b07aa1;">
+        <div class="module-title">SDG Indicators</div>
+        <div class="module-desc">
+          Sustainable Development Goal indicators derived from the CBMS tables.
+        </div>
+        <div class="module-footer">
+          <span class="module-tag">CBMS SDG Tables</span>
+          <span class="module-open">Open &rarr;</span>
+        </div>
+      </a>
+
+      <a href="cso.html" class="module-card" style="border-left-color:#59a14f;">
+        <div class="module-title">CSO Directory</div>
+        <div class="module-desc">
+          Registered, recognized, and accredited civil society organizations across the city.
+        </div>
+        <div class="module-footer">
+          <span class="module-tag">CPDCO records</span>
+          <span class="module-open">Open &rarr;</span>
+        </div>
+      </a>
+
+      <a href="maps.html" class="module-card" style="border-left-color:#76b7b2;">
+        <div class="module-title">Spatial Maps</div>
+        <div class="module-desc">
+          Land use and hazard exposure maps for the city.
+        </div>
+        <div class="module-footer">
+          <span class="module-tag">CLUP &middot; CDRA</span>
+          <span class="module-open">Open &rarr;</span>
+        </div>
+      </a>
+
+      <a href="dashboard.html?view=BurodCast" class="module-card" style="border-left-color:#e15759;">
+        <div class="module-title">BurodCast</div>
+        <div class="module-desc">
+          Barangay-level data briefs drawn from CPDCO and CBMS sources.
+        </div>
+        <div class="module-footer">
+          <span class="module-tag">CPDCO &middot; CBMS</span>
+          <span class="module-open">Open &rarr;</span>
+        </div>
+      </a>
+
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <span class="footer-views">City Planning and Development Coordinator&rsquo;s Office &middot; Catbalogan City</span>
+    <div class="footer-links">
+      <a href="about.html#sources">Data sources</a>
+      <a href="about.html#contact">Contact CPDCO</a>
+      <a href="about.html#privacy">Privacy</a>
+    </div>
+  </footer>
+
+</div>
+
+<script>
+  (function buildViz() {
+    var baseUrl =
+      "https://public.tableau.com/views/CatbaloganCityPSAPopulationTrend/PopulationOverview";
+    var isPhone =
+      /Android|iPhone|iPod|IEMobile|Windows Phone/i.test(navigator.userAgent) ||
+      window.innerWidth < 600;
+    // Name the layout explicitly — left to itself Tableau sizes off the iframe
+    // and can serve the phone layout to a desktop browser.
+    var src = baseUrl
+      + "?:embed=y"
+      + "&:showVizHome=no"
+      + "&:device=" + (isPhone ? "phone" : "desktop");
+    var iframe = document.createElement("iframe");
+    iframe.style.cssText =
+      "width:100%; height:100%; max-width:1400px;" +
+      "margin:0 auto; border:none; display:block;";
+    iframe.setAttribute("title", "Catbalogan City population overview");
+    iframe.setAttribute("src", src);
+    document.getElementById("vizContainer").appendChild(iframe);
+  })();
+</script>
+
+<script src="assets/js/main.js"></script>
+</body>
+</html>

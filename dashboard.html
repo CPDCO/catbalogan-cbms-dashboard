@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CBMS Dashboard — Catbalogan City Planning</title>
+  <meta name="description" content="Community-Based Monitoring System household data for Catbalogan City, Samar — 2022 and 2024 rounds across all CDP sectors.">
+  <link rel="icon" type="image/png" href="assets/img/favicon.png">
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+<div class="page-shell embed">
+
+  <header class="site-head">
+    <a class="head-brand" href="index.html">
+      <img class="head-seal" src="assets/img/seal.png" width="52" height="52" alt="Catbalogan City seal">
+      <div>
+        <h1 class="head-title" id="page-title">Catbalogan City Community Profile</h1>
+        <p class="head-sub">Community-Based Monitoring System &middot; Philippine Statistics Authority</p>
+      </div>
+    </a>
+    <nav class="head-nav">
+      <a href="index.html"     class="nav-pill">Home</a>
+      <a href="dashboard.html" class="nav-pill">CBMS Dashboard</a>
+      <a href="sdg.html"       class="nav-pill">SDG Indicators</a>
+      <a href="cso.html"       class="nav-pill">CSO Directory</a>
+      <a href="maps.html"      class="nav-pill">Maps</a>
+      <a href="about.html"     class="nav-pill">About</a>
+    </nav>
+  </header>
+
+  <div id="vizContainer"></div>
+
+  <footer class="site-footer">
+    <span id="visitor-count" class="footer-views">Loading views...</span>
+    <div class="footer-links">
+      <a href="about.html#sources">Data sources</a>
+      <a href="about.html#contact">Contact CPDCO</a>
+    </div>
+  </footer>
+
+</div>
+
+<script>
+  (function buildViz() {
+    // Views of the CatbaloganCityCBMS workbook reachable from the portal.
+    var VIEWS = {
+      Demography: { path: "CatbaloganCityCBMS-Portal/Demography",
+                    label: "Catbalogan City Community Profile",
+                    title: "CBMS Dashboard" },
+      BurodCast:  { path: "CatbaloganCityCBMS/BurodCast",
+                    label: "BurodCast",
+                    title: "BurodCast" }
+    };
+    var requested = new URLSearchParams(window.location.search).get("view");
+    var view = VIEWS[requested] || VIEWS.Demography;
+
+    document.getElementById("page-title").textContent = view.label;
+    document.title = view.title + " \u2014 Catbalogan City Planning";
+
+    var baseUrl = "https://public.tableau.com/views/" + view.path;
+    var isPhone =
+      /Android|iPhone|iPod|IEMobile|Windows Phone/i.test(navigator.userAgent) ||
+      window.innerWidth < 600;
+    // Name the layout explicitly — left to itself Tableau sizes off the iframe
+    // and can serve the phone layout to a desktop browser.
+    var src = baseUrl
+      + "?:embed=y"
+      + "&:showVizHome=no"
+      + "&:device=" + (isPhone ? "phone" : "desktop");
+    var iframe = document.createElement("iframe");
+    iframe.style.cssText =
+      "width:100%; height:100%; max-width:1400px;" +
+      "margin:0 auto; border:none; display:block;";
+    iframe.setAttribute("title", "Catbalogan City " + view.title);
+    iframe.setAttribute("src", src);
+    document.getElementById("vizContainer").appendChild(iframe);
+  })();
+</script>
+
+<script type="module">
+  import { initializeApp }
+    from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+  import { getFirestore, doc, getDoc, updateDoc, increment }
+    from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyDF-eGFewM9QYBbvx2t7tTsV3VlTwhAqNs",
+    authDomain: "cpdco-dashboard.firebaseapp.com",
+    projectId: "cpdco-dashboard",
+    storageBucket: "cpdco-dashboard.firebasestorage.app",
+    messagingSenderId: "1071975859817",
+    appId: "1:1071975859817:web:dd1ad31fa011938d8b04f8"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const db = getFirestore(app);
+  const docRef = doc(db, "dashboard_stats", "cbms");
+  const hasVisited = localStorage.getItem("cbms_visited");
+
+  async function updateCounter() {
+    if (!hasVisited) {
+      await updateDoc(docRef, { views: increment(1) });
+      localStorage.setItem("cbms_visited", "true");
+    }
+    const snap = await getDoc(docRef);
+    document.getElementById("visitor-count").innerText =
+      "Total views: " + snap.data().views.toLocaleString();
+  }
+
+  updateCounter().catch(function () {
+    document.getElementById("visitor-count").innerText = "";
+  });
+</script>
+
+<script src="assets/js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SDG Indicators — Catbalogan City Planning</title>
+  <meta name="description" content="Sustainable Development Goal indicators for Catbalogan City, Samar, derived from the Community-Based Monitoring System tables.">
+  <link rel="icon" type="image/png" href="assets/img/favicon.png">
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+<div class="page-shell embed">
+
+  <header class="site-head">
+    <a class="head-brand" href="index.html">
+      <img class="head-seal" src="assets/img/seal.png" width="52" height="52" alt="Catbalogan City seal">
+      <div>
+        <h1 class="head-title">SDG Indicators</h1>
+        <p class="head-sub">Sustainable Development Goals &middot; derived from the CBMS tables</p>
+      </div>
+    </a>
+    <nav class="head-nav">
+      <a href="index.html"     class="nav-pill">Home</a>
+      <a href="dashboard.html" class="nav-pill">CBMS Dashboard</a>
+      <a href="sdg.html"       class="nav-pill">SDG Indicators</a>
+      <a href="cso.html"       class="nav-pill">CSO Directory</a>
+      <a href="maps.html"      class="nav-pill">Maps</a>
+      <a href="about.html"     class="nav-pill">About</a>
+    </nav>
+  </header>
+
+  <div id="vizContainer"></div>
+
+  <footer class="site-footer">
+    <span class="footer-views">City Planning and Development Coordinator&rsquo;s Office &middot; Catbalogan City</span>
+    <div class="footer-links">
+      <a href="about.html#sources">Data sources</a>
+      <a href="about.html#contact">Contact CPDCO</a>
+    </div>
+  </footer>
+
+</div>
+
+<script>
+  (function buildViz() {
+    var baseUrl =
+      "https://public.tableau.com/views/CatbaloganCitySDG/SDGIndicators";
+    var isPhone =
+      /Android|iPhone|iPod|IEMobile|Windows Phone/i.test(navigator.userAgent) ||
+      window.innerWidth < 600;
+    // Name the layout explicitly — left to itself Tableau sizes off the iframe
+    // and can serve the phone layout to a desktop browser.
+    var src = baseUrl
+      + "?:embed=y"
+      + "&:showVizHome=no"
+      + "&:device=" + (isPhone ? "phone" : "desktop");
+    var iframe = document.createElement("iframe");
+    iframe.style.cssText =
+      "width:100%; height:100%; max-width:1400px;" +
+      "margin:0 auto; border:none; display:block;";
+    iframe.setAttribute("title", "Catbalogan City SDG indicators");
+    iframe.setAttribute("src", src);
+    document.getElementById("vizContainer").appendChild(iframe);
+  })();
+</script>
+
+<script src="assets/js/main.js"></script>
+</body>
+</html>

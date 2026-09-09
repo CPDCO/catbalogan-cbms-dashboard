@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Spatial Maps — Catbalogan City Planning</title>
+  <meta name="description" content="Land use and hazard maps for Catbalogan City, Samar — published by the City Planning and Development Coordinator's Office.">
+  <link rel="icon" type="image/png" href="assets/img/favicon.png">
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+<div class="page-shell embed">
+
+  <header class="site-head">
+    <a class="head-brand" href="index.html">
+      <img class="head-seal" src="assets/img/seal.png" width="52" height="52" alt="Catbalogan City seal">
+      <div>
+        <h1 class="head-title">Spatial Maps</h1>
+        <p class="head-sub">Land use and hazard exposure &middot; CLUP &middot; CDRA</p>
+      </div>
+    </a>
+    <nav class="head-nav">
+      <a href="index.html"     class="nav-pill">Home</a>
+      <a href="dashboard.html" class="nav-pill">CBMS Dashboard</a>
+      <a href="sdg.html"       class="nav-pill">SDG Indicators</a>
+      <a href="cso.html"       class="nav-pill">CSO Directory</a>
+      <a href="maps.html"      class="nav-pill">Maps</a>
+      <a href="about.html"     class="nav-pill">About</a>
+    </nav>
+  </header>
+
+  <div class="view-switch">
+    <a href="maps.html" data-view="CityLandUse" class="view-tab">Land Use</a>
+    <a href="maps.html?view=HazardMap" data-view="HazardMap" class="view-tab">Hazard</a>
+    <span class="view-note">
+      Hazard susceptibility is indicative and does not replace a site-specific assessment.
+    </span>
+  </div>
+
+  <div id="vizContainer"></div>
+
+  <footer class="site-footer">
+    <span class="footer-views">City Planning and Development Coordinator&rsquo;s Office &middot; Catbalogan City</span>
+    <div class="footer-links">
+      <a href="about.html#sources">Data sources</a>
+      <a href="about.html#contact">Contact CPDCO</a>
+    </div>
+  </footer>
+
+</div>
+
+<script>
+  (function buildViz() {
+    // Views of the CatbaloganCityMaps workbook.
+    var VIEWS = {
+      CityLandUse: { path: "CatbaloganCityMaps/CityLandUse", label: "land use map" },
+      HazardMap:   { path: "CatbaloganCityMaps/HazardMap",   label: "hazard map" }
+    };
+    var requested = new URLSearchParams(window.location.search).get("view");
+    var key = VIEWS[requested] ? requested : "CityLandUse";
+    var view = VIEWS[key];
+
+    var tab = document.querySelector('.view-tab[data-view="' + key + '"]');
+    if (tab) tab.classList.add("active");
+
+    var baseUrl = "https://public.tableau.com/views/" + view.path;
+    var isPhone =
+      /Android|iPhone|iPod|IEMobile|Windows Phone/i.test(navigator.userAgent) ||
+      window.innerWidth < 600;
+    // Name the layout explicitly — left to itself Tableau sizes off the iframe
+    // and can serve the phone layout to a desktop browser.
+    var src = baseUrl
+      + "?:embed=y"
+      + "&:showVizHome=no"
+      + "&:device=" + (isPhone ? "phone" : "desktop");
+    var iframe = document.createElement("iframe");
+    iframe.style.cssText =
+      "width:100%; height:100%; max-width:1400px;" +
+      "margin:0 auto; border:none; display:block;";
+    iframe.setAttribute("title", "Catbalogan City " + view.label);
+    iframe.setAttribute("src", src);
+    document.getElementById("vizContainer").appendChild(iframe);
+  })();
+</script>
+
+<script src="assets/js/main.js"></script>
+</body>
+</html>
