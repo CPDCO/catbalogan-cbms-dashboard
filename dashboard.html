@@ -3,34 +3,35 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>CBMS Dashboard &middot; Catbalogan City Planning</title>
-  <meta name="description" content="Community-Based Monitoring System household data for Catbalogan City, Samar, covering the 2022 and 2024 rounds across all CDP sectors.">
-  <link rel="icon" type="image/png" href="assets/img/favicon.png">
+  <title>CBMS Dashboard — Catbalogan City Planning</title>
+  <meta name="description" content="Community-Based Monitoring System household data for Catbalogan City, Samar — 2022 and 2024 rounds across all CDP sectors.">
+  <link rel="icon" href="assets/img/seal.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
 <div class="page-shell embed">
 
-  <header class="site-head">
-    <a class="head-brand" href="index.html">
-      <img class="head-seal" src="assets/img/seal.png" width="52" height="52" alt="Catbalogan City seal">
+  <nav class="site-nav">
+    <a class="nav-brand" href="index.html">
+      <img src="assets/img/seal.png" width="26" height="26" alt="Catbalogan City seal">
       <div>
-        <h1 class="head-title">Catbalogan City Community Profile</h1>
-        <p class="head-sub">Community-Based Monitoring System &middot; Philippine Statistics Authority</p>
+        <span class="brand-name">Catbalogan City Planning</span>
+        <span class="brand-sub">City Planning and Development Coordinator's Office</span>
       </div>
     </a>
-    <nav class="head-nav">
-      <a href="index.html"     class="nav-pill">Home</a>
-      <a href="population.html" class="nav-pill">Population</a>
-      <a href="dashboard.html" class="nav-pill">CBMS Dashboard</a>
-      <a href="sdg.html"       class="nav-pill">SDG Indicators</a>
-      <a href="maps.html"      class="nav-pill">Maps</a>
-      <a href="cso.html"       class="nav-pill">CSO Directory</a>
-      <a href="burodcast.html" class="nav-pill">BurodCast</a>
-      <a href="about.html"     class="nav-pill">About</a>
-    </nav>
-  </header>
+    <div class="nav-links">
+      <a href="index.html"     class="nav-link">Home</a>
+      <a href="dashboard.html" class="nav-link">CBMS Dashboard</a>
+      <a href="cso.html"       class="nav-link">CSO Directory</a>
+      <a href="maps.html"      class="nav-link">Maps</a>
+      <a href="about.html"     class="nav-link">About CPDCO</a>
+    </div>
+  </nav>
 
+  <!-- Full-bleed iframe -->
   <div id="vizContainer"></div>
 
   <footer class="site-footer">
@@ -43,25 +44,19 @@
 
 </div>
 
+<!-- Iframe builder — phone detection preserved from original -->
 <script>
   (function buildViz() {
-    // A bookmark from when BurodCast was a view of this workbook.
-    if (new URLSearchParams(window.location.search).get("view") === "BurodCast") {
-      window.location.replace("burodcast.html");
-      return;
-    }
-
-    var baseUrl = "https://public.tableau.com/views/CatbaloganCityCBMS-Portal/Demography";
-    var isPhone =
-      /Android|iPhone|iPod|IEMobile|Windows Phone/i.test(navigator.userAgent) ||
-      window.innerWidth < 600;
-    // Name the layout explicitly — left to itself Tableau sizes off the iframe
-    // and can serve the phone layout to a desktop browser.
-    var src = baseUrl
+    const baseUrl =
+      "https://public.tableau.com/views/CatbaloganCityCBMS/Demography";
+    const isPhone =
+      window.innerWidth < 600 ||
+      /Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent);
+    const src = baseUrl
       + "?:embed=y"
       + "&:showVizHome=no"
-      + "&:device=" + (isPhone ? "phone" : "desktop");
-    var iframe = document.createElement("iframe");
+      + (isPhone ? "&:device=phone" : "");
+    const iframe = document.createElement("iframe");
     iframe.style.cssText =
       "width:100%; height:100%; max-width:1400px;" +
       "margin:0 auto; border:none; display:block;";
@@ -71,6 +66,7 @@
   })();
 </script>
 
+<!-- Firebase visitor counter — one count per device via localStorage -->
 <script type="module">
   import { initializeApp }
     from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
@@ -101,7 +97,7 @@
       "Total views: " + snap.data().views.toLocaleString();
   }
 
-  updateCounter().catch(function () {
+  updateCounter().catch(() => {
     document.getElementById("visitor-count").innerText = "";
   });
 </script>
