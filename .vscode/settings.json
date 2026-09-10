@@ -1,0 +1,20 @@
+{
+  // The portal is hand-edited static files: 2-space indent, LF endings.
+  "editor.insertSpaces": true,
+  "editor.tabSize": 2,
+  "editor.detectIndentation": false,
+
+  // LF everywhere keeps git from reporting line-ending churn on every commit.
+  "files.eol": "\n",
+  "files.trimTrailingWhitespace": true,
+  "files.insertFinalNewline": true,
+
+  "files.exclude": {
+    "**/.git": true
+  },
+
+  // No build step — nothing to compile, so search stays on the source files.
+  "search.exclude": {
+    "**/.git": true
+  }
+}
