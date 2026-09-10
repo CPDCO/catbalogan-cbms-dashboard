@@ -51,7 +51,7 @@ GitHub Pages from `main`. Push and the site updates.
 ## Before going live
 
 - [ ] Add `assets/img/og-image.png` — social preview, 1200×630
-- [ ] Fill in the telephone and email rows in the Contact section of `about.html`
+- [ ] Fill in the telephone row in the Contact section of `about.html` (email and Facebook are in)
 - [ ] Confirm the Firestore document `dashboard_stats/cbms` exists with a numeric `views` field
 
 ## Notes
