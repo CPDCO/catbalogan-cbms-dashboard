@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>CSO Directory — Catbalogan City Planning</title>
-  <meta name="description" content="Directory of registered, recognized, and accredited civil society organizations in Catbalogan City, Samar — maintained by the CPDCO under RA 7160 and DILG MC 2022-083.">
+  <title>BurodCast — Catbalogan City Planning</title>
+  <meta name="description" content="BurodCast — barangay-level data briefs for Catbalogan City, Samar, drawn from CBMS results and City Health Office records.">
   <link rel="icon" type="image/png" href="assets/img/favicon.png">
   <link rel="stylesheet" href="assets/css/style.css">
 </head>
@@ -15,8 +15,8 @@
     <a class="head-brand" href="index.html">
       <img class="head-seal" src="assets/img/seal.png" width="52" height="52" alt="Catbalogan City seal">
       <div>
-        <h1 class="head-title">Civil Society Organizations Directory</h1>
-        <p class="head-sub">Registered, recognized, and accredited CSOs &middot; RA 7160 &middot; DILG MC 2022-083</p>
+        <h1 class="head-title">BurodCast</h1>
+        <p class="head-sub">Barangay-level data briefs &middot; CBMS results and City Health Office records</p>
       </div>
     </a>
     <nav class="head-nav">
@@ -29,11 +29,6 @@
       <a href="about.html"     class="nav-pill">About</a>
     </nav>
   </header>
-
-  <div class="source-banner">
-    CSO data is from CPDCO administrative records under RA 7160 and
-    DILG MC 2022-083. Accreditation is valid for 3 years. Last updated: 2024.
-  </div>
 
   <div id="vizContainer"></div>
 
@@ -49,8 +44,7 @@
 
 <script>
   (function buildViz() {
-    const baseUrl =
-      "https://public.tableau.com/views/CSODashboard/CatbaloganCityCivilSocietyOrganizationsDirectory";
+    var baseUrl = "https://public.tableau.com/views/BurodCast/BurodCast";
     var isPhone =
       /Android|iPhone|iPod|IEMobile|Windows Phone/i.test(navigator.userAgent) ||
       window.innerWidth < 600;
@@ -60,11 +54,11 @@
       + "?:embed=y"
       + "&:showVizHome=no"
       + "&:device=" + (isPhone ? "phone" : "desktop");
-    const iframe = document.createElement("iframe");
+    var iframe = document.createElement("iframe");
     iframe.style.cssText =
       "width:100%; height:100%; max-width:1400px;" +
       "margin:0 auto; border:none; display:block;";
-    iframe.setAttribute("title", "Catbalogan City Civil Society Organizations Directory");
+    iframe.setAttribute("title", "Catbalogan City BurodCast");
     iframe.setAttribute("src", src);
     document.getElementById("vizContainer").appendChild(iframe);
   })();

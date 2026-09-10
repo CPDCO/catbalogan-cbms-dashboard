@@ -10,8 +10,9 @@ white cards on a light blue-grey panel.
 | File | Purpose |
 |---|---|
 | `index.html` | Landing page: population overview embed + module grid |
-| `dashboard.html` | CBMS dashboard embed + Firebase view counter; `?view=BurodCast` switches views |
+| `dashboard.html` | CBMS dashboard embed + Firebase view counter |
 | `sdg.html` | SDG indicators embed |
+| `burodcast.html` | BurodCast embed |
 | `cso.html` | CSO directory embed + source disclaimer banner |
 | `maps.html` | Land use and hazard map embed; `?view=HazardMap` switches views |
 | `about.html` | CPDCO logo, mandate, data sources, legal basis, privacy, contact |
@@ -22,15 +23,14 @@ white cards on a light blue-grey panel.
 |---|---|
 | `index.html` | `CatbaloganCityPSAPopulationTrend/PopulationOverview` |
 | `dashboard.html` | `CatbaloganCityCBMS-Portal/Demography` |
-| `dashboard.html?view=BurodCast` | `CatbaloganCityCBMS/BurodCast` |
+| `burodcast.html` | `BurodCast/BurodCast` |
 | `sdg.html` | `CatbaloganCitySDG/SDGIndicators` |
 | `cso.html` | `CSODashboard/CatbaloganCityCivilSocietyOrganizationsDirectory` |
 | `maps.html` | `CatbaloganCityMaps/CityLandUse` |
 | `maps.html?view=HazardMap` | `CatbaloganCityMaps/HazardMap` |
 
-Note that BurodCast still points at the original `CatbaloganCityCBMS` workbook while the main
-dashboard now uses the `CatbaloganCityCBMS-Portal` copy. If BurodCast also exists in the
-portal copy, update the `VIEWS` table in `dashboard.html` so both views come from one workbook.
+`dashboard.html` redirects `?view=BurodCast` to `burodcast.html`, for bookmarks made while
+BurodCast was still a view of the CBMS workbook.
 
 Every embed is built at runtime with `?:embed=y&:showVizHome=no&:device=…`. The device is
 always named explicitly — `phone` for a phone user agent or a viewport under 600px, and
@@ -52,7 +52,6 @@ GitHub Pages from `main`. Push and the site updates.
 
 - [ ] Add `assets/img/og-image.png` — social preview, 1200×630
 - [ ] Fill in the telephone and email rows in the Contact section of `about.html`
-- [ ] Confirm whether BurodCast should move to the `CatbaloganCityCBMS-Portal` workbook
 - [ ] Confirm the Firestore document `dashboard_stats/cbms` exists with a numeric `views` field
 
 ## Notes
@@ -66,4 +65,5 @@ GitHub Pages from `main`. Push and the site updates.
   dashboards. The browser tab icon is `assets/img/favicon.png`, a 128px circle-masked
   reduction of the CPDCO logo.
 - `:embed=y` hides Tableau's own tab strip, so any workbook with more than one view the
-  public needs (currently the maps) gets a portal-level switcher and a `?view=` parameter.
+  public needs (currently only the maps) gets a portal-level switcher and a `?view=`
+  parameter. One workbook per page otherwise.

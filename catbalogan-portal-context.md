@@ -36,6 +36,7 @@ catbalogan-portal/
 ├── index.html              ← Homepage / portal landing
 ├── dashboard.html          ← CBMS Tableau embed + view counter
 ├── sdg.html                ← SDG indicators embed
+├── burodcast.html          ← BurodCast embed
 ├── cso.html                ← CSO directory embed
 ├── maps.html               ← Spatial maps embed
 ├── about.html              ← CPDCO mandate & contact
@@ -164,7 +165,7 @@ rest; hover and the current page each fill a rounded rectangle behind the item.
   <a href="sdg.html"       class="nav-pill">SDG Indicators</a>
   <a href="maps.html"      class="nav-pill">Maps</a>
   <a href="cso.html"       class="nav-pill">CSO Directory</a>
-  <a href="dashboard.html?view=BurodCast" class="nav-pill">BurodCast</a>
+  <a href="burodcast.html" class="nav-pill">BurodCast</a>
   <a href="about.html"     class="nav-pill">About</a>
 </nav>
 ```
@@ -182,18 +183,11 @@ root, where `/` serves `index.html`:
 
 ```js
 var here = window.location.pathname.split('/').pop() || 'index.html';
-var view = new URLSearchParams(window.location.search).get('view') || '';
-
 document.querySelectorAll('.nav-pill').forEach(function (pill) {
-  var href = pill.getAttribute('href').split('#')[0].split('?');
-  var page = href[0];
-  var pillView = href[1] ? (new URLSearchParams(href[1]).get('view') || '') : '';
-  if (page === here && pillView === view) pill.classList.add('active');
+  var target = pill.getAttribute('href').split(/[?#]/)[0];
+  if (target === here) pill.classList.add('active');
 });
 ```
-
-The `?view=` comparison matters: CBMS Dashboard and BurodCast are both
-`dashboard.html`, so matching on the path alone would mark both active.
 
 ### Footer — light, `--surface` with a top rule
 
@@ -256,7 +250,7 @@ own them, not to the portal.
 | 2 | SDG Indicators | `#b07aa1` | CBMS SDG Tables | sdg.html |
 | 3 | Spatial Maps | `#76b7b2` | CLUP · CDRA | maps.html |
 | 4 | CSO Directory | `#59a14f` | CPDCO records | cso.html |
-| 5 | BurodCast | `#e15759` | CPDCO · CBMS | dashboard.html?view=BurodCast |
+| 5 | BurodCast | `#e15759` | CPDCO · CBMS | burodcast.html |
 
 No icons and no emoji — the title carries the card. The sixth "future module" placeholder was
 removed; the grid simply ends after five cards.
@@ -508,7 +502,7 @@ var src = baseUrl
 |---|---|---|---|
 | Home embed | `CatbaloganCityPSAPopulationTrend` | `PopulationOverview` | PSA population trend, embedded on the landing page |
 | CBMS Dashboard | `CatbaloganCityCBMS-Portal` | `Demography` | Portal copy of the CBMS workbook; replaces the original `CatbaloganCityCBMS` |
-| BurodCast | `CatbaloganCityCBMS` | `BurodCast` | Still the original workbook — confirm whether it also exists in the portal copy |
+| BurodCast | `BurodCast` | `BurodCast` | Its own workbook, so its own page; `dashboard.html?view=BurodCast` redirects here |
 | SDG Indicators | `CatbaloganCitySDG` | `SDGIndicators` | Own page, `sdg.html` |
 | CSO Directory | `CSODashboard` | `CatbaloganCityCivilSocietyOrganizationsDirectory` | Separate workbook, TopoJSON base layer |
 | Spatial Maps | `CatbaloganCityMaps` | `CityLandUse`, `HazardMap` | Two views, one page, portal-level switcher |
@@ -575,7 +569,7 @@ of which workbook BurodCast should come from.
 | Embed pages stay height-locked on phones | An earlier mobile override let the page grow, which left a tall empty band under short Tableau phone layouts; Tableau scrolls inside the frame at every size |
 | `dvh` alongside `vh` | Mobile browser chrome makes `100vh` taller than the visible viewport |
 | "About", not "About CPDCO" | The office is already named in the header subtitle |
-| BurodCast via `?view=` | Same workbook as the CBMS dashboard, so one page handles both views instead of duplicating the embed and counter code |
+| BurodCast promoted to its own page | It moved into a standalone workbook, so the `?view=` shim on dashboard.html no longer described anything real — and it had been counting BurodCast visits against the CBMS view counter |
 | KPI strip dropped | Headline figures belong to the sector dashboard that owns them; hardcoding them on the landing page also meant silent staleness on every republish |
 | Home embeds the population overview | Gives the landing page live content without duplicating figures, and the module grid below keeps the routing job |
 | No emoji anywhere | Government tool — icons were decorative and read as informal |
