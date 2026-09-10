@@ -34,6 +34,7 @@ The dashboard IS the product. The portal chrome — nav, footer — exists only 
 catbalogan-portal/
 │
 ├── index.html              ← Homepage / portal landing
+├── population.html         ← PSA population trend embed
 ├── dashboard.html          ← CBMS Tableau embed + view counter
 ├── sdg.html                ← SDG indicators embed
 ├── burodcast.html          ← BurodCast embed
@@ -49,6 +50,7 @@ catbalogan-portal/
 │   └── img/
 │       ├── seal.png        ← City seal, extracted from the CPDC logo artwork
 │       ├── cpdc-logo.jpg   ← CPDCO office logo (about page)
+│       ├── cbms_logo_resized.png ← Transparent CBMS logo, hero watermark
 │       ├── favicon.png     ← Browser tab icon, 128px from the CPDCO logo
 │       └── og-image.png    ← Social preview (1200×630)
 │
@@ -155,12 +157,16 @@ its own bar (below), so the band is kept short to protect iframe height on embed
 
 ### Navigation — right side of the header band
 
-Navigation sits inside the orange header, not in a band of its own. Items are plain text at
-rest; hover and the current page each fill a rounded rectangle behind the item.
+Navigation sits inside the orange header, on its own full-bleed band across the foot of it.
+The band is `rgba(255,255,255,.34)` over the header orange, which separates the navigation
+from the brand area without introducing a second colour. It is always a full row, so it lays
+out identically on every page whatever the page title's width. Items are plain text at rest;
+hover and the current page each fill a rounded rectangle behind the item.
 
 ```html
 <nav class="head-nav">
-  <a href="index.html"     class="nav-pill">Home</a>
+  <a href="index.html"      class="nav-pill">Home</a>
+  <a href="population.html" class="nav-pill">Population</a>
   <a href="dashboard.html" class="nav-pill">CBMS Dashboard</a>
   <a href="sdg.html"       class="nav-pill">SDG Indicators</a>
   <a href="maps.html"      class="nav-pill">Maps</a>
@@ -216,21 +222,24 @@ put the office name there.
 
 **Layout:**
 ```
-HEADER BAND  (orange, seal + title + nav pills)
+HEADER BAND  (orange, seal + title + nav band)
 ───────────────────────────────────────
-HOME EMBED  (620px, population overview viz)
+HERO  (orange gradient, CBMS logo watermark)
+  Understanding Catbalogan City through data
+  [description]
+  [Explore the data]  [About the office]
 ───────────────────────────────────────
 PANEL  (--panel background)
   "City Data Modules"  (orange section title)
-  MODULE GRID  (white cards)
+  MODULE GRID  (white cards, 3 x 2)
 ───────────────────────────────────────
 FOOTER
 ```
 
-The landing page embeds the PSA population overview at a fixed 620px height and the page
-scrolls; it is not a full-viewport embed, because the module grid below it is the page's
-routing job. There is no KPI strip — headline figures belong to the sector dashboards that
-own them, not to the portal.
+The landing page carries no embed. The population trend moved to its own page when
+Population joined the navigation, and a hero replaced it: white text on an orange gradient,
+watermarked with the transparent CBMS logo at 17% opacity. No eyebrow pill and no KPI strip
+— nothing on the landing page states a figure that can go stale.
 
 **Module cards — white, 8px radius, soft shadow, 5px left rule in module color:**
 ```
@@ -246,11 +255,12 @@ own them, not to the portal.
 
 | # | Title | Left rule | Source tag | Link |
 |---|---|---|---|---|
-| 1 | CBMS Dashboard | `#4e79a7` | PSA · CBMS 2024 | dashboard.html |
-| 2 | SDG Indicators | `#b07aa1` | CBMS SDG Tables | sdg.html |
-| 3 | Spatial Maps | `#76b7b2` | CLUP · CDRA | maps.html |
-| 4 | CSO Directory | `#59a14f` | CPDCO records | cso.html |
-| 5 | BurodCast | `#e15759` | CPDCO · CBMS | burodcast.html |
+| 1 | Population | `#edc948` | PSA census | population.html |
+| 2 | CBMS Dashboard | `#4e79a7` | PSA · CBMS 2024 | dashboard.html |
+| 3 | SDG Indicators | `#b07aa1` | CBMS SDG Tables | sdg.html |
+| 4 | Spatial Maps | `#76b7b2` | CLUP · CDRA | maps.html |
+| 5 | CSO Directory | `#59a14f` | CPDCO records | cso.html |
+| 6 | BurodCast | `#e15759` | CPDCO · CBMS | burodcast.html |
 
 No icons and no emoji — the title carries the card. The sixth "future module" placeholder was
 removed; the grid simply ends after five cards.
@@ -500,7 +510,7 @@ var src = baseUrl
 
 | Workbook | Tableau name | View | Notes |
 |---|---|---|---|
-| Home embed | `CatbaloganCityPSAPopulationTrend` | `PopulationOverview` | PSA population trend, embedded on the landing page |
+| Population | `CatbaloganCityPSAPopulationTrend` | `PopulationOverview` | Own page, `population.html` |
 | CBMS Dashboard | `CatbaloganCityCBMS-Portal` | `Demography` | Portal copy of the CBMS workbook; replaces the original `CatbaloganCityCBMS` |
 | BurodCast | `BurodCast` | `BurodCast` | Its own workbook, so its own page; `dashboard.html?view=BurodCast` redirects here |
 | SDG Indicators | `CatbaloganCitySDG` | `SDGIndicators` | Own page, `sdg.html` |
@@ -571,7 +581,8 @@ of which workbook BurodCast should come from.
 | "About", not "About CPDCO" | The office is already named in the header subtitle |
 | BurodCast promoted to its own page | It moved into a standalone workbook, so the `?view=` shim on dashboard.html no longer described anything real — and it had been counting BurodCast visits against the CBMS view counter |
 | KPI strip dropped | Headline figures belong to the sector dashboard that owns them; hardcoding them on the landing page also meant silent staleness on every republish |
-| Home embeds the population overview | Gives the landing page live content without duplicating figures, and the module grid below keeps the routing job |
+| Landing page is a hero, not an embed | Population earned its own nav item and page; the landing page's job is orientation and routing, so it states nothing that can go stale |
+| Nav on its own translucent band | On flat orange the navigation and the brand area ran together; a white overlay separates them without adding a colour |
 | No emoji anywhere | Government tool — icons were decorative and read as informal |
 | Future-module placeholder removed | An empty dashed card advertised absence; the grid ends after the real modules |
 | Seal taken from the CPDC logo | The official logo carries the city seal at usable resolution, so the screenshot crop was replaced |

@@ -4,9 +4,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Catbalogan City Planning Data Portal</title>
-  <meta name="description" content="Planning and development data for Catbalogan City, Samar: population trends, CBMS household data, SDG indicators, the CSO directory, and spatial maps, published by the City Planning and Development Coordinator's Office.">
+  <meta name="description" content="Planning and development data for Catbalogan City, Samar: population trends, CBMS household data, SDG indicators, spatial maps, and the CSO directory, published by the City Planning and Development Coordinator's Office.">
   <meta property="og:title" content="Catbalogan City Planning Data Portal">
-  <meta property="og:description" content="Population trends, CBMS household data, SDG indicators, the CSO directory, and spatial maps for Catbalogan City, Samar.">
+  <meta property="og:description" content="Population trends, CBMS household data, SDG indicators, spatial maps, and the CSO directory for Catbalogan City, Samar.">
   <meta property="og:image" content="assets/img/og-image.png">
   <meta property="og:type" content="website">
   <link rel="icon" type="image/png" href="assets/img/favicon.png">
@@ -24,28 +24,52 @@
       </div>
     </a>
     <nav class="head-nav">
-      <a href="index.html"     class="nav-pill">Home</a>
-      <a href="dashboard.html" class="nav-pill">CBMS Dashboard</a>
-      <a href="sdg.html"       class="nav-pill">SDG Indicators</a>
-      <a href="maps.html"      class="nav-pill">Maps</a>
-      <a href="cso.html"       class="nav-pill">CSO Directory</a>
-      <a href="burodcast.html" class="nav-pill">BurodCast</a>
-      <a href="about.html"     class="nav-pill">About</a>
+      <a href="index.html"      class="nav-pill">Home</a>
+      <a href="population.html" class="nav-pill">Population</a>
+      <a href="dashboard.html"  class="nav-pill">CBMS Dashboard</a>
+      <a href="sdg.html"        class="nav-pill">SDG Indicators</a>
+      <a href="maps.html"       class="nav-pill">Maps</a>
+      <a href="cso.html"        class="nav-pill">CSO Directory</a>
+      <a href="burodcast.html"  class="nav-pill">BurodCast</a>
+      <a href="about.html"      class="nav-pill">About</a>
     </nav>
   </header>
 
-  <section class="home-viz">
-    <div id="vizContainer"></div>
+  <section class="hero">
+    <img class="hero-mark" src="assets/img/cbms_logo_resized.png" alt="" aria-hidden="true">
+    <div class="hero-inner">
+      <h2 class="hero-title">Understanding Catbalogan City through data</h2>
+      <p class="hero-desc">
+        Population, household, sectoral, and spatial data for the city, published by the
+        City Planning and Development Coordinator&rsquo;s Office to support the Comprehensive
+        Development Plan and evidence-based program targeting.
+      </p>
+      <div class="hero-actions">
+        <a href="dashboard.html" class="btn btn-primary">Explore the data</a>
+        <a href="about.html" class="btn btn-ghost">About the office</a>
+      </div>
+    </div>
   </section>
 
   <main class="panel">
     <h2 class="section-title">City Data Modules</h2>
     <p class="section-sub">
-      Household, sectoral, and spatial data published by the office to support the
-      Comprehensive Development Plan and local decision-making.
+      Each module opens a dashboard published by the office. Figures are aggregated; no
+      household-level record is released.
     </p>
 
     <div class="module-grid">
+
+      <a href="population.html" class="module-card" style="border-left-color:#edc948;">
+        <div class="module-title">Population</div>
+        <div class="module-desc">
+          Population size, growth, and distribution across census rounds.
+        </div>
+        <div class="module-footer">
+          <span class="module-tag">PSA census</span>
+          <span class="module-open">Open &rarr;</span>
+        </div>
+      </a>
 
       <a href="dashboard.html" class="module-card" style="border-left-color:#4e79a7;">
         <div class="module-title">CBMS Dashboard</div>
@@ -94,7 +118,7 @@
       <a href="burodcast.html" class="module-card" style="border-left-color:#e15759;">
         <div class="module-title">BurodCast</div>
         <div class="module-desc">
-          Barangay-level data briefs drawn from CPDCO and CBMS sources.
+          Barangay-level data briefs drawn from CBMS results and City Health Office records.
         </div>
         <div class="module-footer">
           <span class="module-tag">CPDCO &middot; CBMS</span>
@@ -115,30 +139,6 @@
   </footer>
 
 </div>
-
-<script>
-  (function buildViz() {
-    var baseUrl =
-      "https://public.tableau.com/views/CatbaloganCityPSAPopulationTrend/PopulationOverview";
-    var isPhone =
-      /Android|iPhone|iPod|IEMobile|Windows Phone/i.test(navigator.userAgent) ||
-      window.innerWidth < 600;
-    // Name the layout explicitly — left to itself Tableau sizes off the iframe
-    // and can serve the phone layout to a desktop browser.
-    var src = baseUrl
-      + "?:embed=y"
-      + "&:showVizHome=no"
-      + "&:device=" + (isPhone ? "phone" : "desktop");
-    var iframe = document.createElement("iframe");
-    iframe.style.cssText =
-      "width:100%; height:100%; max-width:1400px;" +
-      "margin:0 auto; border:none; display:block;";
-    iframe.setAttribute("title", "Catbalogan City population overview");
-    iframe.setAttribute("src", src);
-    document.getElementById("vizContainer").appendChild(iframe);
-  })();
-</script>
-
 <script src="assets/js/main.js"></script>
 </body>
 </html>

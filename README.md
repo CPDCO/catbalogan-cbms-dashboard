@@ -9,8 +9,9 @@ white cards on a light blue-grey panel.
 
 | File | Purpose |
 |---|---|
-| `index.html` | Landing page: population overview embed + module grid |
+| `index.html` | Landing page: hero + module grid (no embed) |
 | `dashboard.html` | CBMS dashboard embed + Firebase view counter |
+| `population.html` | PSA population trend embed |
 | `sdg.html` | SDG indicators embed |
 | `burodcast.html` | BurodCast embed |
 | `cso.html` | CSO directory embed + source disclaimer banner |
@@ -21,7 +22,7 @@ white cards on a light blue-grey panel.
 
 | Page | Tableau view |
 |---|---|
-| `index.html` | `CatbaloganCityPSAPopulationTrend/PopulationOverview` |
+| `population.html` | `CatbaloganCityPSAPopulationTrend/PopulationOverview` |
 | `dashboard.html` | `CatbaloganCityCBMS-Portal/Demography` |
 | `burodcast.html` | `BurodCast/BurodCast` |
 | `sdg.html` | `CatbaloganCitySDG/SDGIndicators` |
@@ -64,6 +65,8 @@ GitHub Pages from `main`. Push and the site updates.
   artwork in `assets/img/cpdc-logo.jpg`. It appears in the page header, matching the
   dashboards. The browser tab icon is `assets/img/favicon.png`, a 128px circle-masked
   reduction of the CPDCO logo.
+- The landing page has no embed. It opens with a hero over an orange gradient, watermarked
+  with the transparent CBMS logo, and routes to the modules below.
 - `:embed=y` hides Tableau's own tab strip, so any workbook with more than one view the
   public needs (currently only the maps) gets a portal-level switcher and a `?view=`
   parameter. One workbook per page otherwise.

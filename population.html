@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>BurodCast &middot; Catbalogan City Planning</title>
-  <meta name="description" content="BurodCast: barangay-level data briefs for Catbalogan City, Samar, drawn from CBMS results and City Health Office records.">
+  <title>Population &middot; Catbalogan City Planning</title>
+  <meta name="description" content="Population trends for Catbalogan City, Samar, from Philippine Statistics Authority census rounds.">
   <link rel="icon" type="image/png" href="assets/img/favicon.png">
   <link rel="stylesheet" href="assets/css/style.css">
 </head>
@@ -15,8 +15,8 @@
     <a class="head-brand" href="index.html">
       <img class="head-seal" src="assets/img/seal.png" width="52" height="52" alt="Catbalogan City seal">
       <div>
-        <h1 class="head-title">BurodCast</h1>
-        <p class="head-sub">Barangay-level data briefs &middot; CBMS results and City Health Office records</p>
+        <h1 class="head-title">Population</h1>
+        <p class="head-sub">Population trends &middot; Philippine Statistics Authority</p>
       </div>
     </a>
     <nav class="head-nav">
@@ -45,7 +45,8 @@
 
 <script>
   (function buildViz() {
-    var baseUrl = "https://public.tableau.com/views/BurodCast/BurodCast";
+    var baseUrl =
+      "https://public.tableau.com/views/CatbaloganCityPSAPopulationTrend/PopulationOverview";
     var isPhone =
       /Android|iPhone|iPod|IEMobile|Windows Phone/i.test(navigator.userAgent) ||
       window.innerWidth < 600;
@@ -59,7 +60,7 @@
     iframe.style.cssText =
       "width:100%; height:100%; max-width:1400px;" +
       "margin:0 auto; border:none; display:block;";
-    iframe.setAttribute("title", "Catbalogan City BurodCast");
+    iframe.setAttribute("title", "Catbalogan City population overview");
     iframe.setAttribute("src", src);
     document.getElementById("vizContainer").appendChild(iframe);
   })();
