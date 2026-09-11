@@ -583,6 +583,7 @@ of which workbook BurodCast should come from.
 | KPI strip dropped | Headline figures belong to the sector dashboard that owns them; hardcoding them on the landing page also meant silent staleness on every republish |
 | Landing page is a hero, not an embed | Population earned its own nav item and page; the landing page's job is orientation and routing, so it states nothing that can go stale |
 | Nav on its own translucent band | On flat orange the navigation and the brand area ran together; a white overlay separates them without adding a colour |
+| Soft shading either side of the nav band | A highlight along its top edge and a gradient falling away above and below lift the strip onto its own plane, instead of three flat areas meeting at hard lines |
 | No emoji anywhere | Government tool — icons were decorative and read as informal |
 | Future-module placeholder removed | An empty dashed card advertised absence; the grid ends after the real modules |
 | Seal taken from the CPDC logo | The official logo carries the city seal at usable resolution, so the screenshot crop was replaced |
