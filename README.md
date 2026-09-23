@@ -41,9 +41,17 @@ test and both get the full layout. Leaving `:device` off makes Tableau size off 
 the phone layout to desktop browsers. Share-link parameters such as `:redirect=auth` and
 `:origin=viz_share_link` are deliberately not used.
 
+Where the desktop layout is wider than the screen — a narrow tablet, a small laptop window —
+the viz keeps its full width and `#vizContainer` scrolls horizontally rather than letting
+Tableau clip it. Tableau's own scrollbar only responds along the bottom edge of the frame,
+because the iframe captures touch everywhere else, so `assets/js/embed.js` adds arrow
+controls above the viz that scroll the container from outside the iframe. They appear only
+when it overflows.
+
 ## Stack
 
-Plain HTML, one stylesheet, one small JS file. No build step, no framework, no package
+Plain HTML, one stylesheet, two small JS files (`main.js` for nav state, `embed.js` for
+the Tableau embeds). No build step, no framework, no package
 manager, and no web fonts — the interface is set in Segoe UI. Design tokens live at the top of `assets/css/style.css` and were sampled from a
 published CBMS dashboard so the portal and the embeds share one palette.
 
