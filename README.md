@@ -35,7 +35,9 @@ BurodCast was still a view of the CBMS workbook.
 
 Every embed is built at runtime with `?:embed=y&:showVizHome=no&:device=…`. The device is
 always named explicitly — `phone` for a phone user agent or a viewport under 600px, and
-`desktop` otherwise. Leaving `:device` off makes Tableau size off the iframe, which served
+`desktop` otherwise. Tablets count as desktop: an Android tablet's user agent carries
+`Android` but not `Mobile`, and iPads report as Macintosh, so neither matches the phone
+test and both get the full layout. Leaving `:device` off makes Tableau size off the iframe, which served
 the phone layout to desktop browsers. Share-link parameters such as `:redirect=auth` and
 `:origin=viz_share_link` are deliberately not used.
 

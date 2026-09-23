@@ -491,7 +491,7 @@ Static page, no iframe. Content:
 |---|---|---|
 | `:embed` | `y` | Hides Tableau chrome |
 | `:showVizHome` | `no` | Removes "View on Tableau Public" bar |
-| `:device` | `phone` or `desktop` | Always set explicitly; omitting it let Tableau size off the iframe and serve the phone layout to desktop browsers |
+| `:device` | `phone` or `desktop` | Phones only; tablets get `desktop`. Always set explicitly; omitting it let Tableau size off the iframe and serve the phone layout to desktop browsers |
 
 Pattern used across all embed pages:
 ```js
