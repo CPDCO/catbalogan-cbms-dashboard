@@ -48,31 +48,12 @@
 
 </div>
 
+<script src="assets/js/embed.js"></script>
 <script>
-  (function buildViz() {
-    const baseUrl =
-      "https://public.tableau.com/views/CSODashboard/CatbaloganCityCivilSocietyOrganizationsDirectory";
-    // Phones only. Android tablets carry "Android" but not "Mobile", and
-    // iPads report as Macintosh, so both fall through to the desktop layout.
-    var ua = navigator.userAgent;
-    var isPhone =
-      /iPhone|iPod|IEMobile|Windows Phone/i.test(ua) ||
-      (/Android/i.test(ua) && /Mobile/i.test(ua)) ||
-      window.innerWidth < 600;
-    // Name the layout explicitly — left to itself Tableau sizes off the iframe
-    // and can serve the phone layout to a desktop browser.
-    var src = baseUrl
-      + "?:embed=y"
-      + "&:showVizHome=no"
-      + "&:device=" + (isPhone ? "phone" : "desktop");
-    const iframe = document.createElement("iframe");
-    iframe.style.cssText =
-      "width:100%; height:100%; max-width:1400px;" +
-      "margin:0 auto; border:none; display:block;";
-    iframe.setAttribute("title", "Catbalogan City Civil Society Organizations Directory");
-    iframe.setAttribute("src", src);
-    document.getElementById("vizContainer").appendChild(iframe);
-  })();
+  buildViz({
+    url: "https://public.tableau.com/views/CSODashboard/CatbaloganCityCivilSocietyOrganizationsDirectory",
+    title: "Catbalogan City Civil Society Organizations Directory"
+  });
 </script>
 
 <script src="assets/js/main.js"></script>

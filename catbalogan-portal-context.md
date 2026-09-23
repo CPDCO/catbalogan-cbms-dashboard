@@ -46,7 +46,8 @@ catbalogan-portal/
 │   ├── css/
 │   │   └── style.css       ← Design tokens + shared rules
 │   ├── js/
-│   │   └── main.js         ← Nav active state
+│   │   ├── main.js         ← Nav active state
+│   │   └── embed.js        ← Shared Tableau embed builder + pan controls
 │   └── img/
 │       ├── seal.png        ← City seal, extracted from the CPDC logo artwork
 │       ├── cpdc-logo.jpg   ← CPDCO office logo (about page)
@@ -565,6 +566,9 @@ of which workbook BurodCast should come from.
 | Firebase counter stays in footer | It was already in the original code; moving it to the footer puts it in the shared shell |
 | Projects & plans removed | Out of scope for this build |
 | Phone detection preserved | Original code already handles this correctly — do not remove |
+| Embed code centralised in `embed.js` | The detection and sizing rules were duplicated in six pages and had already drifted apart once during a bad restore |
+| Narrow screens scroll rather than shrink | Scaling the viz down would have made Tableau's text too small to read on a tablet; the layout stays full size and the container scrolls |
+| Portal-owned pan arrows | The iframe swallows touch everywhere except Tableau's own scrollbar strip, so sideways scrolling needs a control outside the frame |
 | `:device` always named | Auto-detection served the phone layout to desktop browsers; the branch now sets `desktop` explicitly instead of omitting the parameter |
 | Tab icon is the CPDCO logo, header keeps the city seal | The office owns the site; the header still matches the dashboards |
 | `max-width: 1400px` on iframe | Prevents the embed from stretching past the Tableau dashboard's designed max width |
