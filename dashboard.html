@@ -52,8 +52,12 @@
     }
 
     var baseUrl = "https://public.tableau.com/views/CatbaloganCityCBMS-Portal/Demography";
+    // Phones only. Android tablets carry "Android" but not "Mobile", and
+    // iPads report as Macintosh, so both fall through to the desktop layout.
+    var ua = navigator.userAgent;
     var isPhone =
-      /Android|iPhone|iPod|IEMobile|Windows Phone/i.test(navigator.userAgent) ||
+      /iPhone|iPod|IEMobile|Windows Phone/i.test(ua) ||
+      (/Android/i.test(ua) && /Mobile/i.test(ua)) ||
       window.innerWidth < 600;
     // Name the layout explicitly — left to itself Tableau sizes off the iframe
     // and can serve the phone layout to a desktop browser.
