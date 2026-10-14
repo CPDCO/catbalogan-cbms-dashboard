@@ -292,22 +292,24 @@ code, .mono { font-family: 'Cascadia Code', Consolas, monospace; font-size: 12px
    -------------------------------------------------------------------------- */
 
 .panel {
-  background: var(--panel);
-  padding: 20px 24px 28px;
+  background: var(--surface);
+  padding: 26px 24px 36px;
   flex: 1;
 }
+.panel-inner { max-width: 1180px; margin: 0 auto; }
 .section-title {
-  font-size: 19px;
+  font-size: 21px;
   font-weight: 700;
-  color: #9c4f00;
-  margin: 0 0 4px;
+  color: #141414;
+  letter-spacing: -.2px;
+  margin: 0 0 5px;
 }
 .section-sub {
-  font-size: 13px;
-  color: var(--text-muted);
-  margin: 0 0 18px;
-  max-width: 640px;
-  line-height: 1.5;
+  font-size: 13.5px;
+  color: #4a5361;
+  margin: 0 0 4px;
+  max-width: 72ch;
+  line-height: 1.6;
 }
 
 /* --------------------------------------------------------------------------
@@ -316,18 +318,18 @@ code, .mono { font-family: 'Cascadia Code', Consolas, monospace; font-size: 12px
    -------------------------------------------------------------------------- */
 
 .atlas-group { margin-top: 30px; }
-.atlas-group:first-of-type { margin-top: 6px; }
+.atlas-group:first-of-type { margin-top: 24px; }
 .atlas-group-title {
-  font-size: 13px;
+  font-size: 12.5px;
   font-weight: 700;
-  letter-spacing: .07em;
+  letter-spacing: .09em;
   text-transform: uppercase;
-  color: #9c4f00;
+  color: #141414;
   margin: 0 0 3px;
 }
 .atlas-group-note {
   font-size: 13px;
-  color: var(--text-muted);
+  color: #5a6372;
   margin: 0 0 6px;
   max-width: 70ch;
   line-height: 1.55;
@@ -335,36 +337,44 @@ code, .mono { font-family: 'Cascadia Code', Consolas, monospace; font-size: 12px
 .atlas-list {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 0 40px;
-  border-top: 2px solid var(--tab-blue);
+  gap: 0 44px;
+  border-top: 2px solid #141414;
 }
 .atlas-item {
   display: block;
-  padding: 13px 4px 14px;
-  border-bottom: 1px solid var(--border);
+  padding: 14px 6px 15px;
+  border-bottom: 1px solid #e3e7ed;
   text-decoration: none;
   color: inherit;
 }
-.atlas-item:hover { background: #fff6ec; }
+.atlas-item:hover { background: #fdf4e9; }
+
+/* Title, subtitle and provenance separate by size and weight, so the list
+   stays legible in plain black. */
 .atlas-name {
   display: block;
-  font-size: 15px;
+  font-size: 16px;
   font-weight: 600;
-  color: var(--tab-blue);
+  color: #141414;
+  letter-spacing: -.1px;
 }
-.atlas-item:hover .atlas-name { color: #9c4f00; text-decoration: underline; }
+.atlas-item:hover .atlas-name {
+  color: #9c4f00;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
 .atlas-desc {
   display: block;
-  font-size: 13px;
+  font-size: 13.5px;
   line-height: 1.55;
-  color: var(--text-muted);
-  margin-top: 3px;
+  color: #3f4855;
+  margin-top: 4px;
 }
 .atlas-src {
   display: block;
   font-size: 12px;
-  color: var(--text-dim);
-  margin-top: 5px;
+  color: #6c7686;
+  margin-top: 6px;
 }
 
 /* --------------------------------------------------------------------------
