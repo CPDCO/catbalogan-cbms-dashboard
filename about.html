@@ -129,8 +129,12 @@
       <p>
         The portal counts total page views for the CBMS dashboard using a single stored value.
         No personal data, account, or tracking profile is collected; a flag in your browser&rsquo;s
-        local storage prevents repeat counting from the same device. Tableau Public and Google
-        Fonts are third-party services that will see your request when their content loads.
+        local storage prevents repeat counting from the same device.
+      </p>
+      <p>
+        Two third-party services see your request: Tableau Public, which serves the embedded
+        dashboards, and Google Firestore, which holds that view count. The portal loads no web
+        fonts, no analytics, and no advertising scripts.
       </p>
     </section>
 

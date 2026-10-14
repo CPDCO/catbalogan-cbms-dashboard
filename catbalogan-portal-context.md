@@ -1,5 +1,5 @@
 # Catbalogan City Planning Data Portal
-## Build context — VSCode
+## Build context (VSCode)
 
 ---
 
@@ -11,7 +11,7 @@ A static city planning web portal for the **City Planning and Development Coordi
 
 ## Core principle
 
-The dashboard IS the product. The portal chrome — nav, footer — exists only to orient the user and provide consistent branding. Keep it minimal and fast, and keep it visually continuous with the dashboards. No sidebars on dashboard pages — Tableau already provides all navigation internally.
+The dashboard IS the product. The portal chrome (nav and footer) exists only to orient the user and provide consistent branding. Keep it minimal and fast, and keep it visually continuous with the dashboards. No sidebars on dashboard pages: Tableau already provides all navigation internally.
 
 ---
 
@@ -59,7 +59,7 @@ catbalogan-portal/
 ```
 
 **Removed from original plan:**
-- `projects.html` — project monitoring removed from scope
+- `projects.html`: project monitoring removed from scope
 
 ---
 
@@ -75,7 +75,7 @@ catbalogan-portal/
   --pill-hover:     #bf5f00;
   --pill-current:   #fbe3c8;   /* nav pill, current page */
 
-  /* Tableau 10 accents — the same series colors the dashboards use */
+  /* Tableau 10 accents: the same series colors the dashboards use */
   --tab-blue:       #4e79a7;
   --tab-orange:     #f28e2b;
   --tab-red:        #e15759;
@@ -123,12 +123,16 @@ code, .mono { font-family: 'Cascadia Code', Consolas, monospace; font-size: 12px
 ### Interface rules
 
 ```
-NO:  navy chrome — the dashboards are orange-and-blue, the portal follows
+NO:  navy chrome. The dashboards are orange-and-blue, so the portal follows
 NO:  gradient fills
 NO:  heavy borders around cards; use the soft shadow instead
 YES: orange header band with the seal, page title, subtitle, and navigation
 YES: nav items as plain text, filled rounded rectangle on hover and for the current page
-YES: white cards, 8px radius, 0 1px 3px rgba(30,50,80,.10) shadow
+NO:  coloured stripes down the side of a card, or any badge that decorates
+     rather than informs
+NO:  supporting text below 12px, and no white body text on the orange
+YES: white cards, 8px radius, 0 1px 3px rgba(30,50,80,.10) shadow, on
+     interior pages; the landing page uses a ruled index instead
 YES: Tableau blue #4e79a7 for card and section titles, orange #f28e2b for
      group headings and the "Open →" affordance
 YES: 8px base spacing unit, multiples of 8
@@ -139,7 +143,7 @@ YES: full-bleed iframe with minimal surrounding chrome
 
 ## Shared components
 
-### Header band — background: `--head-orange`
+### Header band (`--head-orange`)
 
 The header carries identity only: seal, page title, subtitle. Navigation moved out of it into
 its own bar (below), so the band is kept short to protect iframe height on embed pages.
@@ -156,7 +160,7 @@ its own bar (below), so the band is kept short to protect iframe height on embed
 </header>
 ```
 
-### Navigation — right side of the header band
+### Navigation (inside the header band)
 
 Navigation sits inside the orange header, on its own full-bleed band across the foot of it.
 The band is `rgba(255,255,255,.34)` over the header orange, which separates the navigation
@@ -183,9 +187,9 @@ hover and the current page each fill a rounded rectangle behind the item.
 | `--nav-hover` | `#e07f1f` | hover fill, white text |
 | `--nav-active` | `#d66b00` | current page fill, white text, faint white border |
 
-No item carries a resting fill — only hover and the current page are filled.
+No item carries a resting fill. Only hover and the current page are filled.
 
-Active state — `main.js` matches on the last path segment so it works at the GitHub Pages
+Active state: `main.js` matches on the last path segment so it works at the GitHub Pages
 root, where `/` serves `index.html`:
 
 ```js
@@ -196,7 +200,7 @@ document.querySelectorAll('.nav-pill').forEach(function (pill) {
 });
 ```
 
-### Footer — light, `--surface` with a top rule
+### Footer (`--surface`, with a top rule)
 
 Dark chrome would fight the orange header, so the footer is white with a 1px top border and
 muted text. The Firebase view counter occupies the left slot on `dashboard.html`; other pages
@@ -217,7 +221,7 @@ put the office name there.
 
 ## Page specifications
 
-### `index.html` — Portal homepage
+### `index.html`, Portal homepage
 
 **Purpose:** orient the user and route them to the right dashboard. Not a marketing page. Direct and functional.
 
@@ -240,9 +244,9 @@ FOOTER
 The landing page carries no embed. The population trend moved to its own page when
 Population joined the navigation, and a hero replaced it: white text on an orange gradient,
 watermarked with the transparent CBMS logo at 17% opacity. No eyebrow pill and no KPI strip
-— nothing on the landing page states a figure that can go stale.
+nothing on the landing page states a figure that can go stale.
 
-**Module cards — white, 8px radius, soft shadow, 5px left rule in module color:**
+**Module cards, white, 8px radius, soft shadow, 5px left rule in module color:**
 ```
 ┌──────────────────────────┐
 ▌  [icon]                  │  ← 5px left border in module color
@@ -263,7 +267,7 @@ watermarked with the transparent CBMS logo at 17% opacity. No eyebrow pill and n
 | 5 | CSO Directory | `#59a14f` | CPDCO records | cso.html |
 | 6 | BurodCast | `#e15759` | CPDCO · CBMS | burodcast.html |
 
-No icons and no emoji — the title carries the card. The sixth "future module" placeholder was
+No icons and no emoji, the title carries the card. The sixth "future module" placeholder was
 removed; the grid simply ends after five cards.
 
 ```html
@@ -318,11 +322,11 @@ removed; the grid simply ends after five cards.
 
 ---
 
-### `dashboard.html` — CBMS Dashboard
+### `dashboard.html`, CBMS Dashboard
 
 **Status: already partially built and hosted on GitHub Pages.**
 
-Layout: nav + full-bleed iframe + footer. No sidebar — Tableau provides all internal navigation.
+Layout: nav + full-bleed iframe + footer. No sidebar, Tableau provides all internal navigation.
 
 ```html
 <!DOCTYPE html>
@@ -330,7 +334,7 @@ Layout: nav + full-bleed iframe + footer. No sidebar — Tableau provides all in
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>CBMS Dashboard — Catbalogan City Planning</title>
+  <title>CBMS Dashboard, Catbalogan City Planning</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="assets/css/style.css">
@@ -352,7 +356,7 @@ Layout: nav + full-bleed iframe + footer. No sidebar — Tableau provides all in
     </div>
   </footer>
 
-  <!-- Iframe builder — phone detection preserved from original -->
+  <!-- Iframe builder, phone detection preserved from original -->
   <script>
     (function buildViz() {
       const baseUrl =
@@ -373,7 +377,7 @@ Layout: nav + full-bleed iframe + footer. No sidebar — Tableau provides all in
     })();
   </script>
 
-  <!-- Firebase visitor counter — unchanged from original -->
+  <!-- Firebase visitor counter, unchanged from original -->
   <script type="module">
     import { initializeApp }
       from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
@@ -419,7 +423,7 @@ Layout: nav + full-bleed iframe + footer. No sidebar — Tableau provides all in
 
 ---
 
-### `cso.html` — CSO Directory
+### `cso.html`, CSO Directory
 
 **Dashboard title:** `Catbalogan City Civil Society Organizations Directory`
 **Dashboard subtitle:** `Registered, recognized, and accredited CSOs · Governed by RA 7160 and DILG MC 2022-083 · Accreditation valid for 3 years`
@@ -433,7 +437,7 @@ Layout: nav + source disclaimer banner + full-bleed iframe + footer. No sidebar.
 ```html
 <div class="source-banner">
   ⚠ CSO data is from CPDCO administrative records under RA 7160 and
-  DILG MC 2022-083 — not from the PSA Community-Based Monitoring System.
+  DILG MC 2022-083, not from the PSA Community-Based Monitoring System.
   Last updated: 2024.
 </div>
 ```
@@ -449,17 +453,17 @@ Layout: nav + source disclaimer banner + full-bleed iframe + footer. No sidebar.
 }
 ```
 
-**Tableau workbook:** `CSODashboard` — separate from the CBMS workbook.
+**Tableau workbook:** `CSODashboard`, separate from the CBMS workbook.
 View: `CatbaloganCityCivilSocietyOrganizationsDirectory`
 Base URL: `https://public.tableau.com/views/CSODashboard/CatbaloganCityCivilSocietyOrganizationsDirectory`
 
-Share-link params (`:language`, `:sid`, `:redirect`, `:display_count`, `:origin`) are dropped for the embed — use only the embed params below.
+Share-link params (`:language`, `:sid`, `:redirect`, `:display_count`, `:origin`) are dropped for the embed, use only the embed params below.
 
 Same phone detection and iframe pattern as `dashboard.html`.
 
 ---
 
-### `maps.html` — Spatial Maps
+### `maps.html`, Spatial Maps
 
 Embed page with a portal-level view switcher. `:embed=y` hides Tableau's own tab strip, so
 the two views are exposed as switcher tabs backed by a `?view=` parameter.
@@ -476,7 +480,7 @@ to an office.
 
 ---
 
-### `about.html` — About CPDCO
+### `about.html`, About CPDCO
 
 Static page, no iframe. Content:
 - CPDCO mandate under RA 7160
@@ -527,7 +531,7 @@ var src = baseUrl
 
 ---
 
-## GitHub Pages — current hosting
+## GitHub Pages, current hosting
 
 The CBMS dashboard is already live. The portal wraps around it.
 
@@ -562,10 +566,10 @@ of which workbook BurodCast should come from.
 
 | Decision | Rationale |
 |---|---|
-| No sidebar on dashboard pages | Tableau already has full internal navigation — a sidebar would duplicate it and steal iframe width |
+| No sidebar on dashboard pages | Tableau already has full internal navigation, a sidebar would duplicate it and steal iframe width |
 | Firebase counter stays in footer | It was already in the original code; moving it to the footer puts it in the shared shell |
 | Projects & plans removed | Out of scope for this build |
-| Phone detection preserved | Original code already handles this correctly — do not remove |
+| Phone detection preserved | Original code already handles this correctly, do not remove |
 | Embed code centralised in `embed.js` | The detection and sizing rules were duplicated in six pages and had already drifted apart once during a bad restore |
 | Narrow screens scroll rather than shrink | Scaling the viz down would have made Tableau's text too small to read on a tablet; the layout stays full size and the container scrolls |
 | Portal-owned pan arrows | The iframe swallows touch everywhere except Tableau's own scrollbar strip, so sideways scrolling needs a control outside the frame |
@@ -574,7 +578,7 @@ of which workbook BurodCast should come from.
 | `max-width: 1400px` on iframe | Prevents the embed from stretching past the Tableau dashboard's designed max width |
 | Interface matched to the dashboards | The flat navy shell read as a separate product bolted on top of the viz; the portal now uses the dashboard's own orange header, pill nav, Tableau 10 accents, and white rounded cards, so the chrome and the embed are visually continuous |
 | Palette sampled, not guessed | Colors were read pixel-by-pixel from a published dashboard screenshot rather than approximated |
-| Soft shadow allowed | Overrides the earlier no-shadow rule — the dashboards use raised white cards, and flat bordered cards next to them looked like a different site |
+| Soft shadow allowed | Overrides the earlier no-shadow rule, the dashboards use raised white cards, and flat bordered cards next to them looked like a different site |
 | Current nav pill is the pale one | Same convention as the dashboards, where the active view's button is cream and the rest are solid orange |
 | Light footer | Dark chrome fought the orange header band |
 | Navigation stays in the header band | A separate bar was tried and reverted; it cost iframe height on every embed page for no gain |
@@ -583,12 +587,18 @@ of which workbook BurodCast should come from.
 | Embed pages stay height-locked on phones | An earlier mobile override let the page grow, which left a tall empty band under short Tableau phone layouts; Tableau scrolls inside the frame at every size |
 | `dvh` alongside `vh` | Mobile browser chrome makes `100vh` taller than the visible viewport |
 | "About", not "About CPDCO" | The office is already named in the header subtitle |
-| BurodCast promoted to its own page | It moved into a standalone workbook, so the `?view=` shim on dashboard.html no longer described anything real — and it had been counting BurodCast visits against the CBMS view counter |
+| BurodCast promoted to its own page | It moved into a standalone workbook, so the `?view=` shim on dashboard.html no longer described anything real, and it had been counting BurodCast visits against the CBMS view counter |
 | KPI strip dropped | Headline figures belong to the sector dashboard that owns them; hardcoding them on the landing page also meant silent staleness on every republish |
 | Landing page is a hero, not an embed | Population earned its own nav item and page; the landing page's job is orientation and routing, so it states nothing that can go stale |
 | Nav on its own translucent band | On flat orange the navigation and the brand area ran together; a white overlay separates them without adding a colour |
+| Landing page is a ruled index, not a card grid | Six identical cards with coloured side stripes decorated rather than ordered the datasets; grouping them by purpose under rules reads as an atlas contents page and scans faster |
+| One primary action in the hero | The hero now features Open CBMS Dashboard, the most used route, instead of two equal buttons that competed |
+| Dark text on the orange hero | White on this orange sat near 2:1 contrast and was the least readable text on the site |
+| Phone navigation behind a menu button | Eight links filled several rows before any content on a phone |
+| Embed fallback after 12 seconds | Tableau Public is third party and can be slow or blocked; a blank panel left the reader with nowhere to go |
+| Privacy note corrected | It credited Google Fonts, which the portal stopped loading when it moved to Segoe UI; it now names Tableau Public and Firestore, which it does use |
 | Soft shading either side of the nav band | A highlight along its top edge and a gradient falling away above and below lift the strip onto its own plane, instead of three flat areas meeting at hard lines |
-| No emoji anywhere | Government tool — icons were decorative and read as informal |
+| No emoji anywhere | Government tool, icons were decorative and read as informal |
 | Future-module placeholder removed | An empty dashed card advertised absence; the grid ends after the real modules |
 | Seal taken from the CPDC logo | The official logo carries the city seal at usable resolution, so the screenshot crop was replaced |
 | Portal-level view switcher | `:embed=y` hides Tableau's tab strip, so multi-view workbooks need the portal to expose the views |

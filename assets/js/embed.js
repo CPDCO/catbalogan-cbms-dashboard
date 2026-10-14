@@ -18,7 +18,7 @@
   }
 
   /* A viz wider than the screen can only be panned from Tableau's own
-     scrollbar strip along its bottom edge — the iframe swallows every other
+     scrollbar strip along its bottom edge, the iframe swallows every other
      touch. These portal-owned controls sit outside the iframe, so they work
      from anywhere on the page. */
   function addPanControls(container) {
@@ -27,7 +27,7 @@
     bar.hidden = true;
     bar.innerHTML =
       '<button type="button" class="pan-btn" data-dir="-1" aria-label="Scroll dashboard left">&larr;</button>' +
-      '<span class="pan-hint">Dashboard is wider than the screen &mdash; scroll sideways to see the rest</span>' +
+      '<span class="pan-hint">Dashboard is wider than the screen. Scroll sideways to see the rest.</span>' +
       '<button type="button" class="pan-btn" data-dir="1" aria-label="Scroll dashboard right">&rarr;</button>';
     container.parentNode.insertBefore(bar, container);
 
@@ -56,6 +56,24 @@
     return sync;
   }
 
+  /* Tableau Public is a third party and can be slow or blocked. If the frame
+     has not reported a load by the time this fires, offer the direct link
+     rather than leaving a blank panel. */
+  function addFallback(container, url, title) {
+    var box = document.createElement("div");
+    box.className = "viz-fallback";
+    box.hidden = true;
+    box.innerHTML =
+      '<p class="viz-fallback-title">This dashboard is taking longer than usual to load</p>' +
+      '<p class="viz-fallback-text">It may be blocked on this network, or Tableau Public may be ' +
+      'slow right now. You can reload the page, or open the dashboard directly on Tableau Public.</p>' +
+      '<a class="viz-fallback-link" href="' + url + '" target="_blank" rel="noopener">' +
+      'Open on Tableau Public</a>';
+    container.appendChild(box);
+    var timer = setTimeout(function () { box.hidden = false; }, 12000);
+    return function loaded() { clearTimeout(timer); box.hidden = true; };
+  }
+
   /* opts: { url, title } */
   window.buildViz = function (opts) {
     var container = document.getElementById("vizContainer");
@@ -70,6 +88,9 @@
     iframe.setAttribute("src",
       opts.url + "?:embed=y&:showVizHome=no&:device=" + (phone ? "phone" : "desktop"));
     container.appendChild(iframe);
+
+    var settled = addFallback(container, opts.url, opts.title);
+    iframe.addEventListener("load", settled);
 
     // The phone layout is built to fit, so it never needs panning.
     if (!phone) {

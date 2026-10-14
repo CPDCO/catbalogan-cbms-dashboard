@@ -2,14 +2,14 @@
 
 Static web portal for the City Planning and Development Coordinator's Office (CPDCO),
 Catbalogan City, Samar. It wraps the office's Tableau Public dashboards in a shell that
-reuses the dashboards' own visual language — orange header band, Tableau 10 accent colors,
-white cards on a light blue-grey panel.
+reuses the dashboards' own visual language: orange header band, Tableau 10 accent colors,
+and a light blue-grey panel.
 
 ## Pages
 
 | File | Purpose |
 |---|---|
-| `index.html` | Landing page: hero + module grid (no embed) |
+| `index.html` | Landing page: short hero plus a grouped index of the datasets |
 | `dashboard.html` | CBMS dashboard embed + Firebase view counter |
 | `population.html` | PSA population trend embed |
 | `sdg.html` | SDG indicators embed |
@@ -34,14 +34,14 @@ white cards on a light blue-grey panel.
 BurodCast was still a view of the CBMS workbook.
 
 Every embed is built at runtime with `?:embed=y&:showVizHome=no&:device=…`. The device is
-always named explicitly — `phone` for a phone user agent or a viewport under 600px, and
+always named explicitly, `phone` for a phone user agent or a viewport under 600px, and
 `desktop` otherwise. Tablets count as desktop: an Android tablet's user agent carries
 `Android` but not `Mobile`, and iPads report as Macintosh, so neither matches the phone
 test and both get the full layout. Leaving `:device` off makes Tableau size off the iframe, which served
 the phone layout to desktop browsers. Share-link parameters such as `:redirect=auth` and
 `:origin=viz_share_link` are deliberately not used.
 
-Where the desktop layout is wider than the screen — a narrow tablet, a small laptop window —
+Where the desktop layout is wider than the screen, a narrow tablet, a small laptop window,
 the viz keeps its full width and `#vizContainer` scrolls horizontally rather than letting
 Tableau clip it. Tableau's own scrollbar only responds along the bottom edge of the frame,
 because the iframe captures touch everywhere else, so `assets/js/embed.js` adds arrow
@@ -52,7 +52,7 @@ when it overflows.
 
 Plain HTML, one stylesheet, two small JS files (`main.js` for nav state, `embed.js` for
 the Tableau embeds). No build step, no framework, no package
-manager, and no web fonts — the interface is set in Segoe UI. Design tokens live at the top of `assets/css/style.css` and were sampled from a
+manager, and no web fonts, the interface is set in Segoe UI. Design tokens live at the top of `assets/css/style.css` and were sampled from a
 published CBMS dashboard so the portal and the embeds share one palette.
 
 ## Deploying
@@ -61,7 +61,7 @@ GitHub Pages from `main`. Push and the site updates.
 
 ## Before going live
 
-- [ ] Add `assets/img/og-image.png` — social preview, 1200×630
+- [ ] Add `assets/img/og-image.png`, social preview, 1200×630
 - [ ] Fill in the telephone row in the Contact section of `about.html` (email and Facebook are in)
 - [ ] Confirm the Firestore document `dashboard_stats/cbms` exists with a numeric `views` field
 
@@ -69,14 +69,21 @@ GitHub Pages from `main`. Push and the site updates.
 
 - The Firebase config in `dashboard.html` is a public web API key, which is expected to ship
   in client code. Access is controlled by Firestore security rules, not by hiding the key.
-- Embed pages have no sidebar by design — Tableau supplies its own internal navigation.
+- Embed pages have no sidebar by design, Tableau supplies its own internal navigation.
 - No emoji appear anywhere in the interface; module cards are typographic only.
 - `assets/img/seal.png` is the city seal extracted at 512px from the official CPDC logo
   artwork in `assets/img/cpdc-logo.jpg`. It appears in the page header, matching the
   dashboards. The browser tab icon is `assets/img/favicon.png`, a 128px circle-masked
   reduction of the CPDCO logo.
-- The landing page has no embed. It opens with a hero over an orange gradient, watermarked
-  with the transparent CBMS logo, and routes to the modules below.
+- The landing page has no embed. A short hero carries one primary action, Open CBMS
+  Dashboard, and the datasets are listed below it grouped by purpose rather than shown as a
+  grid of identical cards. Nothing on it states a figure that can go stale.
+- Navigation collapses behind a labelled menu button below 760px. The button is built in
+  `main.js`, so the full navigation still shows when scripting is unavailable.
+- If a Tableau frame has not loaded after 12 seconds, `embed.js` shows a message and a direct
+  link to the dashboard on Tableau Public rather than leaving a blank panel.
+- Body text over the orange hero is dark rather than white, and no supporting text is set
+  below 12px.
 - `:embed=y` hides Tableau's own tab strip, so any workbook with more than one view the
   public needs (currently only the maps) gets a portal-level switcher and a `?view=`
   parameter. One workbook per page otherwise.
